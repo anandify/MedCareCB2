@@ -24,11 +24,11 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
-    const name = 'Khushi';
-    const trimonth = '4';//the current month of the trimester
-    const medical='Diabetes'//append more
-    //const history = `You arae a chatbot that helps pregnant women. (The woman is already pregnant so please dont ask unnecessary questions).`;
-    const history = `You are a chatbot that helps pregnant women. (The woman is already pregnant so please dont ask unessecary questions) Name of the Patient: ${name}`;
+    //const name = 'Khushi';
+    //const trimonth = '4';//the current month of the trimester
+    //const medical='Diabetes'//append more
+    const history = `You arae a chatbot that helps pregnant women. (The woman is already pregnant so please dont ask unnecessary questions).`;
+    //const history = `You are a chatbot that helps pregnant women. (The woman is already pregnant so please dont ask unessecary questions) Name of the Patient: ${name}`;
     
     
     const GPT35TurboMessage = [
