@@ -14,4 +14,4 @@ A full version(under-development) of the idea is implemented here: [https://gith
 
 ## Contributing
 
-If you'd like to contribute to Mamta, please fork this [repository](https://github.com/anandify/MedcareCB)) and submit a pull request.
+If you'd like to contribute to Mamta, please fork this [repository](https://github.com/anandify/MedcareCB) and submit a pull request.
