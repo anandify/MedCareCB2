@@ -1,4 +1,4 @@
-# MamtaCB - A web implementation of Mamta
+# MamtaCB - A web implementation
 
 Mamta is a digital assistant designed to support pregnant women throughout their journey. It's built using Node.js/Flutter and provides a range of features to help women make informed decisions about their health.
 
