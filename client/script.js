@@ -203,11 +203,11 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       if (!isRecognizing) {
         recognition.start();
         isRecognizing = true;
-        micButton.innerHTML = '<img src="${mic}" alt="microphone" />';
+        micButton.innerHTML = `<img src=${mic} alt="microphone" />`;
       } else {
         recognition.stop();
         isRecognizing = false;
-        micButton.innerHTML = '<img src="${mic2}" alt="microphone" />';
+        micButton.innerHTML = `<img src=${mic2} alt="microphone" />`;
       }
     });
     
