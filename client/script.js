@@ -28,7 +28,7 @@ async function displayWelcomeMessage() {
   loader(messageDiv);
 
   // Simulate a delay to mimic the bot's response time
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 2500));
 
   clearInterval(loadInterval);
   messageDiv.innerHTML = " ";
