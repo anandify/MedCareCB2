@@ -1,5 +1,7 @@
 import bot from './assets/doctorsahab.svg'
 import user from './assets/pregnant_lady_adobe_express.svg'
+import mic from './assets/mic.svg'
+import mic2 from '/assets/mic2.svg'
 
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
@@ -7,7 +9,7 @@ const chatContainer = document.querySelector('#chat_container')
 //welcome messages
 const welcomeMessages = [
   "👋 Hi there! Welcome to Mamta! How can I assist you today?",
-  "🌟 Welcome to Mamta! I'm here to help you with all your pregnancy needs. Ask me anything!",
+  "👋 Hi, I'm Mamta, your personalized pregnancy assistant, Ask me anything!",
   "👋 Hi there! Mamta is here to assist you with your pregnancy questions. Feel free to ask!",
   "🌸 Hello! Welcome to Mamta. Let me know how I can help you with your pregnancy journey.",
 ];
@@ -152,36 +154,6 @@ form.addEventListener('keyup', (e) => {
 
 displayWelcomeMessage();
 
-// const startButton = document.getElementById('micButton');
-// const textarea = document.querySelector('prompt');
-
-// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-// const recognition = new SpeechRecognition();
-
-// let isRecording = false; // Track the recording state
-
-// recognition.continuous = true; // Keeps listening even if the user pauses
-
-// recognition.onresult = (event) => {
-//   const transcript = event.results[event.results.length - 1][0].transcript;
-//   console.log('Recognized Speech:', transcript);
-//   textarea.value = transcript;
-// };
-
-// startButton.addEventListener('click', () => {
-//   if (!isRecording) {
-//     recognition.start();
-//     isRecording = true;
-//     startButton.classList.add('active'); // Add a CSS class to indicate active state
-//     startButton.querySelector('img').src = 'assets/mic2.svg'; // Change the image source
-//   } else {
-//     recognition.stop();
-//     isRecording = false;
-//     startButton.classList.remove('active'); // Remove the CSS class
-//     startButton.querySelector('img').src = 'assets/mic.svg'; // Change the image source back to the original
-//   }
-// });
-
 // Speech to text:-
 // Check for browser compatibility
 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -231,11 +203,11 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       if (!isRecognizing) {
         recognition.start();
         isRecognizing = true;
-        micButton.innerHTML = '<img src="assets/mic.svg" alt="microphone" />';
+        micButton.innerHTML = '<img src="${mic} alt="microphone" />';
       } else {
         recognition.stop();
         isRecognizing = false;
-        micButton.innerHTML = '<img src="assets/mic2.svg" alt="microphone" />';
+        micButton.innerHTML = '<img src="${mic2}" alt="microphone" />';
       }
     });
     
