@@ -4,6 +4,37 @@ import user from './assets/pregnant_lady_adobe_express.svg'
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
 
+//welcome messages
+const welcomeMessages = [
+  "👋 Hi there! Welcome to Mamta! How can I assist you today?",
+  "🌟 Welcome to Mamta! I'm here to help you with all your pregnancy needs. Ask me anything!",
+  "👋 Hi there! Mamta is here to assist you with your pregnancy questions. Feel free to ask!",
+  "🌸 Hello! Welcome to Mamta. Let me know how I can help you with your pregnancy journey.",
+];
+async function displayWelcomeMessage() {
+  // Select a random welcome message
+  const welcomeMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+
+  // bot's chatstripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+  // specific message div 
+  const messageDiv = document.getElementById(uniqueId);
+
+  // messageDiv.innerHTML = "..."
+  loader(messageDiv);
+
+  // Simulate a delay to mimic the bot's response time
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  clearInterval(loadInterval);
+  messageDiv.innerHTML = " ";
+
+  typeText(messageDiv, welcomeMessage);
+}
+
+//typing effect
 let loadInterval
 
 function loader(element) {
@@ -119,6 +150,8 @@ form.addEventListener('keyup', (e) => {
     }
 })
 
+displayWelcomeMessage();
+
 // const startButton = document.getElementById('micButton');
 // const textarea = document.querySelector('prompt');
 
@@ -149,6 +182,7 @@ form.addEventListener('keyup', (e) => {
 //   }
 // });
 
+// Speech to text:-
 // Check for browser compatibility
 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     // Create a new SpeechRecognition object
@@ -192,16 +226,21 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
   
     // Start or stop the recognition when the microphone button is clicked
     var isRecognizing = false;
-    document.getElementById('micButton').addEventListener('click', function () {
+    var micButton = document.getElementById('micButton');
+    micButton.addEventListener('click', function () {
       if (!isRecognizing) {
         recognition.start();
         isRecognizing = true;
+        micButton.innerHTML = '<img src="assets/mic.svg" alt="microphone" />';
       } else {
         recognition.stop();
         isRecognizing = false;
+        micButton.innerHTML = '<img src="assets/mic2.svg" alt="microphone" />';
       }
     });
+    
   } else {
     console.error('Speech recognition not supported.');
   }
+  
   
