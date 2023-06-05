@@ -215,4 +215,20 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     console.error('Speech recognition not supported.');
   }
   
-  
+//Loading Screen
+window.addEventListener("load", function () {
+  const loadingOverlay = document.getElementById("loading-overlay");
+  const loadingImage = document.querySelector(".loading-image");
+  const logoOverlay = document.querySelector(".logo-overlay");
+
+  setTimeout(function () {
+    logoOverlay.classList.add("fade-out");
+  }, 500);
+
+  setTimeout(function () {
+    loadingImage.classList.add("fade-out");
+    setTimeout(function () {
+      loadingOverlay.style.display = "none";
+    }, 500);
+  }, 1000);
+});
