@@ -6,7 +6,7 @@ Mamta's core feature is an intelligent chatbot that can answer questions related
 
 In addition to answering questions, Mamta can help women schedule appointments with healthcare providers, track their medications and supplements, and receive personalized recommendations based on their health history and preferences.
 
-The basic web version of mamta can be accessed through [https://mamta-blond.vercel.app/](https://mamta-blond.vercel.app/).
+The basic web version of Mamta can be accessed through [https://mamta-blond.vercel.app/](https://mamta-blond.vercel.app/).
 
 A full version(under-development) of the idea is implemented here: [https://github.com/anandify/MedcareCB](https://github.com/anandify/MedcareCB).
 
