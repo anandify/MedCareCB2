@@ -2,9 +2,28 @@ import bot from './assets/doctorsahab.svg'
 import user from './assets/pregnant_lady_adobe_express.svg'
 import mic from './assets/mic.svg'
 import mic2 from '/assets/mic2.svg'
+import { v4 as uuidv4 } from 'uuid';
 
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
+
+let sessionId = localStorage.getItem('sessionId') || uuidv4();
+let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
+
+// Save session ID and conversation history in local storage
+function saveSessionData() {
+  localStorage.setItem('sessionId', sessionId);
+  localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+}
+
+// Function to start a new session
+function startNewSession() {
+  sessionId = uuidv4();
+  conversationHistory = [];
+  saveSessionData();
+  chatContainer.innerHTML = ''; // Clear the chat container
+  displayWelcomeMessage();
+}
 
 //welcome messages
 const welcomeMessages = [
@@ -99,25 +118,23 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const data = new FormData(form);
+  const userMessage = data.get('prompt');
 
-  // user's chatstripe
-  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+  chatContainer.innerHTML += chatStripe(false, userMessage);
 
-  // to clear the textarea input 
   form.reset();
 
-  // bot's chatstripe
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
-  // to focus scroll to the bottom 
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
-  // specific message div 
   const messageDiv = document.getElementById(uniqueId);
 
-  // messageDiv.innerHTML = "..."
   loader(messageDiv);
+
+  conversationHistory.push({ role: 'user', text: userMessage });
+  saveSessionData();
 
   try {
     const response = await fetch('http://localhost:5000/', {
@@ -125,10 +142,7 @@ const handleSubmit = async (e) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        prompt: data.get('prompt'),
-        conversationId: localStorage.getItem('conversationId') || null,
-      }),
+      body: JSON.stringify({ prompt: userMessage }),
     });
 
     clearInterval(loadInterval);
@@ -136,14 +150,12 @@ const handleSubmit = async (e) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      const parsedData = responseData.bot.trim(); // trims any trailing spaces/'\n' 
+      const botMessage = responseData.bot.trim();
 
-      typeText(messageDiv, parsedData);
+      typeText(messageDiv, botMessage);
 
-      // Store the conversation ID for future requests
-      if (responseData.conversationId) {
-        localStorage.setItem('conversationId', responseData.conversationId);
-      }
+      conversationHistory.push({ role: 'bot', text: botMessage });
+      saveSessionData();
     } else {
       const err = await response.text();
       messageDiv.innerHTML = "Something went wrong";
@@ -289,7 +301,11 @@ window.addEventListener("load", function () {
         content = '<h2>Login</h2><p>Login form and details here...</p>';
         break;
       case 'previousChats':
-        content = '<h2>Previous Chats</h2><p>List of previous chats...</p>';
+        content = `
+          <h2>Previous Chats</h2>
+          <p>List of previous chats...</p>
+          <button id="newChatButton">New Chat</button>
+        `;
         break;
       case 'documents':
         content = '<h2>Documents</h2><p>Uploaded documents here...</p>';
@@ -299,7 +315,13 @@ window.addEventListener("load", function () {
         break;
     }
     menuDetails.innerHTML = content;
-  }
+  
+    // Add event listener for the new chat button if it exists
+    if (section === 'previousChats') {
+      const newChatButton = document.getElementById('newChatButton');
+      newChatButton.addEventListener('click', startNewSession);
+    }
+  }  
 
   // Initially display previous chats details
   updateMenuDetails('previousChats');
