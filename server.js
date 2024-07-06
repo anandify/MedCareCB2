@@ -2,7 +2,6 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 
@@ -17,9 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const conversations = {};
-
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   res.status(200).send({
     message: 'Hi!, I am Mamta, a chatbot that helps you in your pregnancy.',
   });
@@ -27,60 +24,11 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    const { conversationId, prompt } = req.body;
+    const prompt = req.body.prompt;
 
-    let chat;
-    if (conversationId && conversations[conversationId]) {
-      chat = conversations[conversationId].chat;
-    } else {
-      chat = model.startChat({
-        history: [
-          {
-            role: 'user',
-            parts: [{ text: prompt }],
-          },
-        ],
-        generationConfig: {
-          maxOutputTokens: 100,
-        },
-      });
-
-      const newConversationId = uuidv4();
-      conversations[newConversationId] = {
-        chat,
-        history: [
-          { role: 'user', text: prompt },
-        ],
-      };
-
-      const result = await chat.sendMessage(prompt);
-      const response = await result.response;
-      const botResponse = response.text();
-
-      conversations[newConversationId].history.push(
-        { role: 'model', text: botResponse }
-      );
-
-      console.log(`New conversation started with ID: ${newConversationId}`);
-      console.log(conversations[newConversationId].history);
-
-      return res.status(200).send({
-        conversationId: newConversationId,
-        bot: botResponse,
-      });
-    }
-
-    const result = await chat.sendMessage(prompt);
+    const result = await model.generateContent(prompt);
     const response = await result.response;
     const botResponse = response.text();
-
-    conversations[conversationId].history.push(
-      { role: 'user', text: prompt },
-      { role: 'model', text: botResponse },
-    );
-
-    console.log(`Continued conversation with ID: ${conversationId}`);
-    console.log(conversations[conversationId].history);
 
     res.status(200).send({
       bot: botResponse,
