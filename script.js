@@ -96,63 +96,74 @@ function chatStripe(isAi, value, uniqueId) {
 }
 
 const handleSubmit = async (e) => {
-    e.preventDefault()
+  e.preventDefault();
 
-    const data = new FormData(form)
+  const data = new FormData(form);
 
-    // user's chatstripe
-    chatContainer.innerHTML += chatStripe(false, data.get('prompt'))
+  // user's chatstripe
+  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 
-    // to clear the textarea input 
-    form.reset()
+  // to clear the textarea input 
+  form.reset();
 
-    // bot's chatstripe
-    const uniqueId = generateUniqueId()
-    chatContainer.innerHTML += chatStripe(true, " ", uniqueId)
+  // bot's chatstripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
-    // to focus scroll to the bottom 
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+  // to focus scroll to the bottom 
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    // specific message div 
-    const messageDiv = document.getElementById(uniqueId)
+  // specific message div 
+  const messageDiv = document.getElementById(uniqueId);
 
-    // messageDiv.innerHTML = "..."
-    loader(messageDiv)
+  // messageDiv.innerHTML = "..."
+  loader(messageDiv);
 
-    const response = await fetch('https://mamta-cj8n.onrender.com/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: data.get('prompt')
-        })
-    })
+  try {
+    const response = await fetch('http://localhost:5000/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: data.get('prompt'),
+        conversationId: localStorage.getItem('conversationId') || null,
+      }),
+    });
 
-    clearInterval(loadInterval)
-    messageDiv.innerHTML = " "
+    clearInterval(loadInterval);
+    messageDiv.innerHTML = " ";
 
     if (response.ok) {
-        const data = await response.json();
-        const parsedData = data.bot.trim() // trims any trailing spaces/'\n' 
+      const responseData = await response.json();
+      const parsedData = responseData.bot.trim(); // trims any trailing spaces/'\n' 
 
-        typeText(messageDiv, parsedData)
+      typeText(messageDiv, parsedData);
+
+      // Store the conversation ID for future requests
+      if (responseData.conversationId) {
+        localStorage.setItem('conversationId', responseData.conversationId);
+      }
     } else {
-        const err = await response.text()
-
-        messageDiv.innerHTML = "Something went wrong"
-        alert(err)
+      const err = await response.text();
+      messageDiv.innerHTML = "Something went wrong";
+      alert(err);
     }
-}
+  } catch (error) {
+    console.error('Error:', error);
+    messageDiv.innerHTML = "Something went wrong";
+  }
+};
 
-form.addEventListener('submit', handleSubmit)
+form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
-    if (e.keyCode === 13) {
-        handleSubmit(e)
-    }
-})
+  if (e.keyCode === 13) {
+    handleSubmit(e);
+  }
+});
 
 displayWelcomeMessage();
+
 
 // Speech to text:-
 // Check for browser compatibility
