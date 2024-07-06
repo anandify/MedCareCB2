@@ -12,6 +12,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "server": "^1.0.39"
+    "server": "^1.0.39",
+    "uuid": "^10.0.0"
   }
 }
