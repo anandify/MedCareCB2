@@ -4,55 +4,59 @@ import mic from './assets/mic.svg'
 import mic2 from '/assets/mic2.svg'
 import { v4 as uuidv4 } from 'uuid';
 
-const form = document.querySelector('form')
-const chatContainer = document.querySelector('#chat_container')
+const form = document.querySelector('form');
+const chatContainer = document.querySelector('#chat_container');
+const menuDetails = document.querySelector('#menuDetails');
 
+// Initialize or retrieve the session ID and conversation history
 let sessionId = localStorage.getItem('sessionId') || uuidv4();
 let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
+let allConversations = JSON.parse(localStorage.getItem('allConversations')) || {};
 
-// Save session ID and conversation history in local storage
+// Save session data in local storage
 function saveSessionData() {
   localStorage.setItem('sessionId', sessionId);
   localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+  localStorage.setItem('allConversations', JSON.stringify(allConversations));
 }
 
 // Function to start a new session
 function startNewSession() {
   sessionId = uuidv4();
+  allConversations[sessionId] = [];
   conversationHistory = [];
   saveSessionData();
   chatContainer.innerHTML = ''; // Clear the chat container
   displayWelcomeMessage();
+  updateMenuDetails('previousChats'); // Update the menu to show the new session
 }
 
 //welcome messages
-const welcomeMessages = [
-  "👋 Hi there! Welcome to Mamta! How can I assist you today?",
-  "👋 Hi, I'm Mamta, your personalized pregnancy assistant, Ask me anything!",
-  "👋 Hi there! Mamta is here to assist you with your pregnancy questions. Feel free to ask!",
-  "🌸 Hello! Welcome to Mamta. Let me know how I can help you with your pregnancy journey.",
-];
 async function displayWelcomeMessage() {
-  // Select a random welcome message
+  const welcomeMessages = [
+    "👋 Hi there! Welcome to Mamta! How can I assist you today?",
+    "👋 Hi, I'm Mamta, your personalized pregnancy assistant. Ask me anything!",
+    "👋 Hi there! Mamta is here to assist you with your pregnancy questions. Feel free to ask!",
+    "🌸 Hello! Welcome to Mamta. Let me know how I can help you with your pregnancy journey.",
+  ];
   const welcomeMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
 
-  // bot's chatstripe
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
-  // specific message div 
   const messageDiv = document.getElementById(uniqueId);
-
-  // messageDiv.innerHTML = "..."
   loader(messageDiv);
 
-  // Simulate a delay to mimic the bot's response time
   await new Promise(resolve => setTimeout(resolve, 2500));
 
   clearInterval(loadInterval);
   messageDiv.innerHTML = " ";
 
   typeText(messageDiv, welcomeMessage);
+
+  conversationHistory.push({ role: 'bot', text: welcomeMessage });
+  allConversations[sessionId] = conversationHistory;
+  saveSessionData();
 }
 
 //typing effect
@@ -134,6 +138,7 @@ const handleSubmit = async (e) => {
   loader(messageDiv);
 
   conversationHistory.push({ role: 'user', text: userMessage });
+  allConversations[sessionId] = conversationHistory;
   saveSessionData();
 
   try {
@@ -155,6 +160,7 @@ const handleSubmit = async (e) => {
       typeText(messageDiv, botMessage);
 
       conversationHistory.push({ role: 'bot', text: botMessage });
+      allConversations[sessionId] = conversationHistory;
       saveSessionData();
     } else {
       const err = await response.text();
@@ -301,11 +307,11 @@ window.addEventListener("load", function () {
         content = '<h2>Login</h2><p>Login form and details here...</p>';
         break;
       case 'previousChats':
-        content = `
-          <h2>Previous Chats</h2>
-          <p>List of previous chats...</p>
-          <button id="newChatButton">New Chat</button>
-        `;
+        content = '<h2>Previous Chats</h2><ul>';
+        for (const [id, history] of Object.entries(allConversations)) {
+          content += `<li><a href="#" onclick="loadConversation('${id}')">${id}</a></li>`;
+        }
+        content += '</ul><button id="newChatButton">New Chat</button><button id="clearHistoryButton">Clear History</button>';
         break;
       case 'documents':
         content = '<h2>Documents</h2><p>Uploaded documents here...</p>';
@@ -316,14 +322,60 @@ window.addEventListener("load", function () {
     }
     menuDetails.innerHTML = content;
   
-    // Add event listener for the new chat button if it exists
     if (section === 'previousChats') {
       const newChatButton = document.getElementById('newChatButton');
       newChatButton.addEventListener('click', startNewSession);
+  
+      const clearHistoryButton = document.getElementById('clearHistoryButton');
+      clearHistoryButton.addEventListener('click', clearConversationHistory);
     }
-  }  
+  }
+  
+  // Function to load conversation history
+  window.loadConversation = function (id) {
+    sessionId = id;
+    conversationHistory = allConversations[id] || [];
+    chatContainer.innerHTML = ''; // Clear the chat container
+    conversationHistory.forEach(entry => {
+      const uniqueId = generateUniqueId();
+      chatContainer.innerHTML += chatStripe(entry.role === 'bot', entry.text, uniqueId);
+    });
+  };
+  
+  // Function to clear conversation history
+  function clearConversationHistory() {
+    allConversations = {};
+    conversationHistory = [];
+    saveSessionData();
+    updateMenuDetails('previousChats');
+  }
+  
+  // Style the new chat button
+  const style = document.createElement('style');
+  style.innerHTML = `
+    #newChatButton, #clearHistoryButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition-duration: 0.4s;
+    }
+  
+    #newChatButton:hover, #clearHistoryButton:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+  `;
+  document.head.appendChild(style);
 
   // Initially display previous chats details
-  updateMenuDetails('previousChats');
+  //updateMenuDetails('previousChats');
   
 });
