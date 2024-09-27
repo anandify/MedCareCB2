@@ -41,7 +41,7 @@ async function displayWelcomeMessage() {
   ];
   const welcomeMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
 
-  const uniqueId = generateUniqueId();
+  const uniqueId = generateStripId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
   const messageDiv = document.getElementById(uniqueId);
@@ -89,10 +89,10 @@ function typeText(element, text) {
     }, 20)
 }
 
-// generate unique ID for each message div of bot
+// generate strip ID for each message div of bot
 // necessary for typing text effect for that specific reply
-// without unique ID, typing text will work on every element
-function generateUniqueId() {
+// without strip ID, typing text will work on every element
+function generateStripId() {
     const timestamp = Date.now();
     const randomNumber = Math.random();
     const hexadecimalString = randomNumber.toString(16);
@@ -128,7 +128,7 @@ const handleSubmit = async (e) => {
 
   form.reset();
 
-  const uniqueId = generateUniqueId();
+  const uniqueId = generateStripId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -147,7 +147,10 @@ const handleSubmit = async (e) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: userMessage }),
+      body: JSON.stringify({
+        prompt: userMessage,
+        conversationId: sessionId|| null,
+      }),
     });
 
     clearInterval(loadInterval);
@@ -155,6 +158,7 @@ const handleSubmit = async (e) => {
 
     if (response.ok) {
       const responseData = await response.json();
+      console.log(responseData);
       const botMessage = responseData.bot.trim();
 
       typeText(messageDiv, botMessage);
@@ -337,7 +341,7 @@ window.addEventListener("load", function () {
     conversationHistory = allConversations[id] || [];
     chatContainer.innerHTML = ''; // Clear the chat container
     conversationHistory.forEach(entry => {
-      const uniqueId = generateUniqueId();
+      const uniqueId = generateStripId();
       chatContainer.innerHTML += chatStripe(entry.role === 'bot', entry.text, uniqueId);
     });
   };
