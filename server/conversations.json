@@ -1,0 +1,1289 @@
+{
+  "adc1ec4b-879c-4241-a345-2070418162cf": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "That's a great question! We could call this conversation:\n\n* **\"Pregnancy Journey\"** - It's a simple and descriptive name that reflects what we'll be talking about.\n* **\"My Pregnancy Chat\"** - A personal and friendly name that makes it feel like our own space.\n* **\"Baby Talk\"** -  A fun and lighthearted name that focuses on the excitement of your little one.\n\nWhat do you think?  Or do you"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi there! 👋  It's great to connect with you.  What's on your mind today?  Are you feeling any particular way, or is there something specific you'd like to talk about related to your pregnancy? \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "That's a great question! We could call this conversation:\n\n* **\"Pregnancy Journey\"** - It's a simple and descriptive name that reflects what we'll be talking about.\n* **\"My Pregnancy Chat\"** - A personal and friendly name that makes it feel like our own space.\n* **\"Baby Talk\"** -  A fun and lighthearted name that focuses on the excitement of your little one.\n\nWhat do you think?  Or do you"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi there! 👋  It's great to connect with you.  What's on your mind today?  Are you feeling any particular way, or is there something specific you'd like to talk about related to your pregnancy? \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "That's a great question! We could call this conversation:\n\n* **\"Pregnancy Journey\"** - It's a simple and descriptive name that reflects what we'll be talking about.\n* **\"My Pregnancy Chat\"** - A personal and friendly name that makes it feel like our own space.\n* **\"Baby Talk\"** -  A fun and lighthearted name that focuses on the excitement of your little one.\n\nWhat do you think?  Or do you",
+    "history": [
+      {
+        "role": "user",
+        "text": "Hi\n"
+      },
+      {
+        "role": "model",
+        "text": "Hi there! 👋  It's great to connect with you.  What's on your mind today?  Are you feeling any particular way, or is there something specific you'd like to talk about related to your pregnancy? \n"
+      }
+    ]
+  },
+  "e92f6ddc-a704-4e72-a87e-835b0b58cc09": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Nope but I want to thank you. Remember my name is Dexa\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "That's a great question, Dexa! It's important to find a name that feels right for this space where we can talk about your pregnancy journey. \n\nHere are a few ideas:\n\n* **Dexa's Pregnancy Journey:** Simple and to the point.\n* **Dexa's Baby Watch:** A playful name that highlights the anticipation of your little one's arrival.\n* **Dexa's Nest:** A cozy name that evokes the feeling of building"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Nope but I want to thank you. Remember my name is Dexa\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "You're very welcome, Dexa!  It's lovely to be chatting with you.  What can I help you with today? 😊 \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Nope but I want to thank you. Remember my name is Dexa\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "That's a great question, Dexa! It's important to find a name that feels right for this space where we can talk about your pregnancy journey. \n\nHere are a few ideas:\n\n* **Dexa's Pregnancy Journey:** Simple and to the point.\n* **Dexa's Baby Watch:** A playful name that highlights the anticipation of your little one's arrival.\n* **Dexa's Nest:** A cozy name that evokes the feeling of building"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Nope but I want to thank you. Remember my name is Dexa\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "You're very welcome, Dexa!  It's lovely to be chatting with you.  What can I help you with today? 😊 \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "That's a great question, Dexa! It's important to find a name that feels right for this space where we can talk about your pregnancy journey. \n\nHere are a few ideas:\n\n* **Dexa's Pregnancy Journey:** Simple and to the point.\n* **Dexa's Baby Watch:** A playful name that highlights the anticipation of your little one's arrival.\n* **Dexa's Nest:** A cozy name that evokes the feeling of building",
+    "history": [
+      {
+        "role": "user",
+        "text": "Nope but I want to thank you. Remember my name is Dexa\n"
+      },
+      {
+        "role": "model",
+        "text": "You're very welcome, Dexa!  It's lovely to be chatting with you.  What can I help you with today? 😊 \n"
+      }
+    ]
+  },
+  "789f9024-b425-451f-8a6e-dcbc4bd9fe74": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Whats my name gain?\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "That's a great question!  How about we call it \"Pregnancy Journey\"? It's a good way to keep track of all the information and support we're sharing.  \n\nWhat else can I help you with today? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Whats my name gain?\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "It's great you're thinking about your weight gain during pregnancy!  It's a common concern, but it's important to remember that gaining weight is a normal and healthy part of pregnancy.  \n\nTo answer your question accurately, I need a little more information.  Could you tell me:\n\n* **How far along are you in your pregnancy?** \n* **What was your pre-pregnancy weight?**\n\nOnce I have that information, I can give you"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Whats my name gain?\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "That's a great question!  How about we call it \"Pregnancy Journey\"? It's a good way to keep track of all the information and support we're sharing.  \n\nWhat else can I help you with today? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Whats my name gain?\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "It's great you're thinking about your weight gain during pregnancy!  It's a common concern, but it's important to remember that gaining weight is a normal and healthy part of pregnancy.  \n\nTo answer your question accurately, I need a little more information.  Could you tell me:\n\n* **How far along are you in your pregnancy?** \n* **What was your pre-pregnancy weight?**\n\nOnce I have that information, I can give you"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "That's a great question!  How about we call it \"Pregnancy Journey\"? It's a good way to keep track of all the information and support we're sharing.  \n\nWhat else can I help you with today?",
+    "history": [
+      {
+        "role": "user",
+        "text": "Whats my name gain?\n"
+      },
+      {
+        "role": "model",
+        "text": "It's great you're thinking about your weight gain during pregnancy!  It's a common concern, but it's important to remember that gaining weight is a normal and healthy part of pregnancy.  \n\nTo answer your question accurately, I need a little more information.  Could you tell me:\n\n* **How far along are you in your pregnancy?** \n* **What was your pre-pregnancy weight?**\n\nOnce I have that information, I can give you"
+      }
+    ]
+  },
+  "7b3e097a-3d6e-4c26-9401-f74defbd372f": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Name??\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "How about \"Pregnancy Journey\"?  It's simple, positive, and reflects what we're here to do!  😊  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Name??\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "It sounds like you're ready to start talking about your pregnancy!  I'm here to help you with anything you need.  What's on your mind today? 😊  \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Name??\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "How about \"Pregnancy Journey\"?  It's simple, positive, and reflects what we're here to do!  😊  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Name??\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "It sounds like you're ready to start talking about your pregnancy!  I'm here to help you with anything you need.  What's on your mind today? 😊  \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "How about \"Pregnancy Journey\"?  It's simple, positive, and reflects what we're here to do!  😊  What do you think?",
+    "history": [
+      {
+        "role": "user",
+        "text": "Name??\n"
+      },
+      {
+        "role": "model",
+        "text": "It sounds like you're ready to start talking about your pregnancy!  I'm here to help you with anything you need.  What's on your mind today? 😊  \n"
+      }
+    ]
+  },
+  "d24e4b76-232f-4668-ace1-f0591d86d97c": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi my name is dexa\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi my name is dexa\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi my name is dexa\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi my name is dexa\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think?",
+    "history": [
+      {
+        "role": "user",
+        "text": "Hi my name is dexa\n"
+      },
+      {
+        "role": "model",
+        "text": "Hi Dexa! It's great to hear from you.  How about we call this conversation \"Dexa's Pregnancy Journey\"?  It sounds like a good start to documenting all your exciting updates and any questions you might have along the way. 😊  What do you think? \n"
+      }
+    ]
+  },
+  "d48d394c-711c-40f7-886e-3dc85fd9db3b": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What is my name??\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "How about \"Mommy & Me Chat\"? 😊 Or maybe \"Baby's First Chat\" 😄  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What is my name??\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Oh, I'm sorry! I can't access personal information like your name.  I'm just a friendly chatbot here to help you with your pregnancy journey.  Is there anything else I can help you with today? Maybe some tips on managing morning sickness, or information about prenatal vitamins? 😊 \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What is my name??\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "How about \"Mommy & Me Chat\"? 😊 Or maybe \"Baby's First Chat\" 😄  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What is my name??\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Oh, I'm sorry! I can't access personal information like your name.  I'm just a friendly chatbot here to help you with your pregnancy journey.  Is there anything else I can help you with today? Maybe some tips on managing morning sickness, or information about prenatal vitamins? 😊 \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "How about \"Mommy & Me Chat\"? 😊 Or maybe \"Baby's First Chat\" 😄  What do you think?",
+    "history": [
+      {
+        "role": "user",
+        "text": "What is my name??\n"
+      },
+      {
+        "role": "model",
+        "text": "Oh, I'm sorry! I can't access personal information like your name.  I'm just a friendly chatbot here to help you with your pregnancy journey.  Is there anything else I can help you with today? Maybe some tips on managing morning sickness, or information about prenatal vitamins? 😊 \n"
+      }
+    ]
+  },
+  "b616494e-3642-4473-aa7e-ede08d57ff4d": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can. \n\nAs for naming the conversation, how about \"Pregnancy Journey\" or \"Maternity Support\"?  We can also brainstorm together if you have other ideas in mind! 😊  What are you hoping to discuss today? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Hi\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can during this special time.  What's on your mind today? 😊  Are you curious about a specific topic related to pregnancy, or would you like to just chat? \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can. \n\nAs for naming the conversation, how about \"Pregnancy Journey\" or \"Maternity Support\"?  We can also brainstorm together if you have other ideas in mind! 😊  What are you hoping to discuss today? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Hi\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can during this special time.  What's on your mind today? 😊  Are you curious about a specific topic related to pregnancy, or would you like to just chat? \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can. \n\nAs for naming the conversation, how about \"Pregnancy Journey\" or \"Maternity Support\"?  We can also brainstorm together if you have other ideas in mind! 😊  What are you hoping to discuss today?",
+    "history": [
+      {
+        "role": "user",
+        "text": "Hi\n"
+      },
+      {
+        "role": "model",
+        "text": "Hi there!  It's great to hear from you!  I'm happy to help in any way I can during this special time.  What's on your mind today? 😊  Are you curious about a specific topic related to pregnancy, or would you like to just chat? \n"
+      }
+    ]
+  },
+  "3b2a2b8a-d7e5-425a-a985-271e7da25c72": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "My name is Dexa\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "My name is Dexa\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today? \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "My name is Dexa\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "My name is Dexa\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today? \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today?",
+    "history": [
+      {
+        "role": "user",
+        "text": "My name is Dexa\n"
+      },
+      {
+        "role": "model",
+        "text": "Hi Dexa, that's a lovely name!  \n\nHow about we call this conversation \"Dexa's Pregnancy Journey\"? It's a good way to keep track of all the information and support you need during this exciting time.  \n\nWhat are some things you're hoping to learn or talk about today? \n"
+      }
+    ]
+  },
+  "3ff36388-3b28-4799-b506-af3e08c280ec": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Whats my name?\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "How about \"Mommy-to-be Chat\"?  😊  Is that a good name for our conversation? Let me know if you have a better one!  I'm here to help you with any questions or concerns you might have during your pregnancy. \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Whats my name?\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Oh, I apologize! I don't have access to personal information like your name.  \n\nIs there anything else I can help you with today?  Perhaps you'd like to discuss some pregnancy symptoms, healthy eating during pregnancy, or even just share some exciting news about your little one? 😄\n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Whats my name?\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "How about \"Mommy-to-be Chat\"?  😊  Is that a good name for our conversation? Let me know if you have a better one!  I'm here to help you with any questions or concerns you might have during your pregnancy. \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Whats my name?\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Oh, I apologize! I don't have access to personal information like your name.  \n\nIs there anything else I can help you with today?  Perhaps you'd like to discuss some pregnancy symptoms, healthy eating during pregnancy, or even just share some exciting news about your little one? 😄\n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "How about \"Mommy-to-be Chat\"?  😊  Is that a good name for our conversation? Let me know if you have a better one!  I'm here to help you with any questions or concerns you might have during your pregnancy.",
+    "history": [
+      {
+        "role": "user",
+        "text": "Whats my name?\n"
+      },
+      {
+        "role": "model",
+        "text": "Oh, I apologize! I don't have access to personal information like your name.  \n\nIs there anything else I can help you with today?  Perhaps you'd like to discuss some pregnancy symptoms, healthy eating during pregnancy, or even just share some exciting news about your little one? 😄\n"
+      }
+    ]
+  },
+  "e7caca14-49a8-4268-897c-7b9d9f4c13e3": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "huh\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "That's a great question!  What feels right for you?  \n\nWould you like to call it:\n\n* **\"My Pregnancy Journey\"**\n* **\"Baby Name Brainstorm\"**\n* **\"Prenatal Q&A\"** \n* **\"Mama-to-be Chat\"** \n\nOr maybe something completely different?  Let me know what resonates with you! 😊 \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "huh\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "It's okay to not have a name for the conversation! We can just chat and see where it takes us.  😊\n\nIs there anything specific you'd like to talk about today? Or maybe just share how you're feeling? \n\nI'm here to listen and offer any support I can.  ✨\n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "huh\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "That's a great question!  What feels right for you?  \n\nWould you like to call it:\n\n* **\"My Pregnancy Journey\"**\n* **\"Baby Name Brainstorm\"**\n* **\"Prenatal Q&A\"** \n* **\"Mama-to-be Chat\"** \n\nOr maybe something completely different?  Let me know what resonates with you! 😊 \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "huh\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "It's okay to not have a name for the conversation! We can just chat and see where it takes us.  😊\n\nIs there anything specific you'd like to talk about today? Or maybe just share how you're feeling? \n\nI'm here to listen and offer any support I can.  ✨\n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "That's a great question!  What feels right for you?  \n\nWould you like to call it:\n\n* **\"My Pregnancy Journey\"**\n* **\"Baby Name Brainstorm\"**\n* **\"Prenatal Q&A\"** \n* **\"Mama-to-be Chat\"** \n\nOr maybe something completely different?  Let me know what resonates with you! 😊",
+    "history": [
+      {
+        "role": "user",
+        "text": "huh\n"
+      },
+      {
+        "role": "model",
+        "text": "It's okay to not have a name for the conversation! We can just chat and see where it takes us.  😊\n\nIs there anything specific you'd like to talk about today? Or maybe just share how you're feeling? \n\nI'm here to listen and offer any support I can.  ✨\n"
+      }
+    ]
+  },
+  "04802999-49fc-493b-a899-44c6fb2f5079": {
+    "chat": {
+      "model": "models/gemini-1.5-flash",
+      "params": {
+        "generationConfig": {
+          "maxOutputTokens": 100
+        },
+        "safetySettings": [],
+        "systemInstruction": {
+          "role": "system",
+          "parts": [
+            {
+              "text": "You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions)."
+            }
+          ]
+        },
+        "history": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Call me dexa\n"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What will we name this conversation?"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          },
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Call me dexa\n"
+              }
+            ]
+          },
+          {
+            "parts": [
+              {
+                "text": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think? \n"
+              }
+            ],
+            "role": "model"
+          }
+        ]
+      },
+      "requestOptions": {},
+      "_history": [
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Call me dexa\n"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "What will we name this conversation?"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "role": "user",
+          "parts": [
+            {
+              "text": "Call me dexa\n"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think? \n"
+            }
+          ],
+          "role": "model"
+        }
+      ],
+      "_sendPromise": {},
+      "_apiKey": "AIzaSyA1HXwPbAgs7Fm0POZYjNf-NsD2Hi1WQX8"
+    },
+    "name": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think?",
+    "history": [
+      {
+        "role": "user",
+        "text": "Call me dexa\n"
+      },
+      {
+        "role": "model",
+        "text": "Okay, Dexa!  That's a great name. 😊  How about we call this conversation \"Pregnancy Pal\"?  It's a friendly way to keep track of our chats and remember that you have a support system here.  What do you think? \n"
+      }
+    ]
+  }
+}
