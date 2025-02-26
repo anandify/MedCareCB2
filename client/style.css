@@ -21,6 +21,10 @@ body.dark-mode {
   /* color: #e0e0e0; */
 }
 
+.dark-mode a {
+  color: white;
+}
+
 #app {
   display: flex;
   flex-direction: column;
@@ -251,8 +255,8 @@ button:hover {
 
 
 form img {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 
 #loading-overlay {
@@ -309,6 +313,11 @@ form img {
   /* Rotate arrow when menu is open */
 }
 
+body.dark-mode #arrow-button img {
+  filter: brightness(0) invert(1);
+  /* Change arrow when menu is open */
+}
+
 #menu {
   position: fixed;
   left: -300px;
@@ -322,8 +331,11 @@ form img {
 }
 
 body.dark-mode #menu {
-  background: #2c2c2c;
+  background: #0d1626 ;
   color: #e0e0e0;
+}
+body.dark-mode #micButton img{
+  filter: brightness(0) invert(1);
 }
 
 #menu.open {
