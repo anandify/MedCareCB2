@@ -9,37 +9,39 @@
 
 body {
   background: #8bc0e4;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+body.dark-mode {
+  background: #2c2c2c;
+  color: #e0e0e0;
 }
 
 #app {
-  width: 100vw;
-  height: 100vh;
-  background: #8bc0e4;
-
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  width: 100vw;
+  height: 100vh; 
+  background: inherit;
+  justify-content: flex-start;
+  transition: transform 0.5s ease;
 }
 
 #chat_container {
-  flex: 1;
+  flex-grow: 1; 
   width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 10px;
-
+  padding-bottom: 80px;
   -ms-overflow-style: none;
   scrollbar-width: none;
-
-  padding-bottom: 20px;
   scroll-behavior: smooth;
 }
 
-/* hides scrollbar */
 #chat_container::-webkit-scrollbar {
   display: none;
 }
@@ -53,11 +55,14 @@ body {
   background: #dbf3ff;
 }
 
+body.dark-mode .ai {
+  background: #3a3a3a;
+}
+
 .chat {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -68,9 +73,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 5px;
-
   background: #5436DA;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,26 +91,19 @@ body {
 
 .message {
   flex: 1;
-
   color: #080808;
   font-size: 20px;
-
   max-width: 100%;
   overflow-x: scroll;
-
-  /*
-   * white space refers to any spaces, tabs, or newline characters that are used to format the CSS code
-   * specifies how white space within an element should be handled. It is similar to the "pre" value, which tells the browser to treat all white space as significant and to preserve it exactly as it appears in the source code.
-   * The pre-wrap value allows the browser to wrap long lines of text onto multiple lines if necessary.
-   * The default value for the white-space property in CSS is "normal". This tells the browser to collapse multiple white space characters into a single space, and to wrap text onto multiple lines as needed to fit within its container.
-  */
-  white-space: pre-wrap; 
-
+  white-space: pre-wrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* hides scrollbar */
+body.dark-mode .message {
+  color: #e0e0e0;
+}
+
 .message::-webkit-scrollbar {
   display: none;
 }
@@ -118,23 +114,33 @@ form {
   margin: 0 auto;
   padding: 10px;
   background: #dbf3ff;
-
   display: flex;
   flex-direction: row;
   gap: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000; /* Ensure form stays on top */
+}
+
+body.dark-mode form {
+  background: #3a3a3a;
 }
 
 textarea {
   width: 100%;
-
   color: #080808;
   font-size: 18px;
-
   padding: 10px;
   background: transparent;
   border-radius: 5px;
   border: none;
   outline: none;
+  resize: none;
+}
+
+body.dark-mode textarea {
+  color: #e0e0e0;
 }
 
 button {
@@ -171,10 +177,170 @@ form img {
 }
 
 .loading-image {
-  width: 150px; /* Adjust the size of the circular frame */
+  width: 150px;
   height: 150px;
-  border: 4px solid #363853; /* Adjust the color and thickness of the circular frame */
-  border-radius: 50%; /* Create a circular shape */
-  background-image: url(assets/pregnant_lady_adobe_express.svg); /* Add the loading image as background */
-  background-size: cover; /* Scale the image to cover the circular frame */
+  border: 4px solid #363853;
+  border-radius: 50%;
+  background-image: url(assets/pregnant_lady_adobe_express.svg);
+  background-size: cover;
+}
+
+#arrow-button {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1000;
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+  background: transparent;
+}
+
+#arrow-button img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.5s ease; /* Smooth rotation */
+}
+
+#arrow-button.open img {
+  transform: rotate(180deg); /* Rotate arrow when menu is open */
+}
+
+#menu {
+  position: fixed;
+  left: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #dbf3ff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  transition: left 0.5s ease;
+  z-index: 999;
+}
+
+body.dark-mode #menu {
+  background: #2c2c2c;
+  color: #e0e0e0;
+}
+
+#menu.open {
+  left: 0;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto; /* Add vertical scrolling if needed */
+}
+
+.menu-left {
+  width: 100%;
+  background: #10a37f;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+
+.menu-left button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.menu-right {
+  flex: 1;
+  padding: 20px;
+}
+
+.menu-icons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.menu-icon-button {
+  background: transparent;
+  border: none;
+  margin-right: 10px;
+}
+
+.menu-icon-button img {
+  width: 30px;
+  height: 30px;
+}
+
+body.dark-mode .menu-icon-button img {
+  filter: invert(1);
+}
+
+@media (max-width: 768px) {
+
+  #chat_container {
+    max-height: calc(100vh - 80px); /* Leave space for the form */
+    overflow-y: auto; 
+  }
+  
+  body, html {
+    overflow-x: hidden; 
+  }
+  
+  #arrow-button {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #arrow-button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #menu {
+    width: 100%;
+    left: -100%;
+  }
+
+  #menu.open {
+    left: 0;
+  }
+
+  .menu-content {
+    flex-direction: column;
+  }
+
+  .menu-left {
+    width: 100%;
+    flex-direction: row;
+   
+justify-content: space-around;
+padding: 10px 0;
+}
+
+.menu-right {
+width: 100%;
+padding: 20px;
+}
+
+.menu-icons {
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 10px;
+}
+
+.menu-icon-button {
+background: transparent;
+border: none;
+margin-right: 10px;
+}
+
+.menu-icon-button img {
+width: 30px;
+height: 30px;
+}
 }
