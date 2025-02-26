@@ -10,26 +10,42 @@
 body {
   background: #8bc0e4;
   overflow-x: hidden;
-  transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+  transition: background 0.3s ease, color 0.3s ease;
+  /* Smooth transition for dark mode */
 }
 
 body.dark-mode {
-  background: #2c2c2c;
-  color: #e0e0e0;
+  background: #1B263B;
+  color: #E0E0E0;
+  /*background: #2c2c2c;*/
+  /* color: #e0e0e0; */
 }
 
 #app {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh; 
+  height: 100vh;
   background: inherit;
   justify-content: flex-start;
   transition: transform 0.5s ease;
 }
 
+.chatbot-message {
+  background-color: #ffffff;
+  /* Set background to white */
+  color: #000;
+  /* Ensure text color contrasts well */
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px 0;
+  max-width: 70%;
+  align-self: flex-start;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 #chat_container {
-  flex-grow: 1; 
+  flex-grow: 1;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -51,12 +67,30 @@ body.dark-mode {
   padding: 15px;
 }
 
-.ai {
-  background: #dbf3ff;
+.wrapper.false {
+  align-self: flex-end;
+  width: 100%;
 }
 
+.wrapper.false .chat {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.wrapper.false .message {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.wrapper.false .profile {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+
 body.dark-mode .ai {
-  background: #3a3a3a;
+  background: #1B263B;
+  /* background: #3a3a3a; */
 }
 
 .chat {
@@ -67,7 +101,14 @@ body.dark-mode .ai {
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
+  justify-content: flex-start;
 }
+
+.chat.user {
+  justify-content: flex-end;
+  /* User messages align to the right */
+}
+
 
 .profile {
   width: 36px;
@@ -98,10 +139,17 @@ body.dark-mode .ai {
   white-space: pre-wrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  text-align: left;
+  word-wrap: break-word;
 }
 
 body.dark-mode .message {
-  color: #e0e0e0;
+  /* color: #e0e0e0; */
+  color: #243B55;
 }
 
 .message::-webkit-scrollbar {
@@ -109,9 +157,12 @@ body.dark-mode .message {
 }
 
 form {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 80%;
+  /* Adjust form width */
+  max-width: 800px;
+  /* Limit maximum width */
+  margin: 0 auto 20px;
+  /* Center the form horizontally and add bottom margin */
   padding: 10px;
   background: #dbf3ff;
   display: flex;
@@ -119,8 +170,14 @@ form {
   gap: 10px;
   position: fixed;
   bottom: 0;
-  left: 0;
-  z-index: 1000; /* Ensure form stays on top */
+  left: 50%;
+  /* Center horizontally */
+  transform: translateX(-50%);
+  /* Align the center */
+  border-radius: 15px;
+  /* Rounded corners for the form */
+  z-index: 1000;
+  /* Ensure form stays on top */
 }
 
 body.dark-mode form {
@@ -133,26 +190,67 @@ textarea {
   font-size: 18px;
   padding: 10px;
   background: transparent;
-  border-radius: 5px;
-  border: none;
+  border-radius: 10px;
+  /* Rounded corners for the textarea */
+  border: 1px solid #cccccc;
+  /* Optional border for better visibility */
   outline: none;
   resize: none;
 }
 
 body.dark-mode textarea {
   color: #e0e0e0;
+  border: 1px solid #555;
+  /* Dark mode adjustment */
 }
 
+
+/* General button styling */
 button {
-  outline: 0;
-  border: 0;
+  background-color: #10a37f;
+  /* Green background */
+  color: white;
+  /* White text */
+  border: none;
+  /* Remove default borders */
+  padding: 10px 20px;
+  /* Add padding for size */
+  font-size: 16px;
+  /* Text size */
+  font-weight: bold;
+  /* Bold text */
+  border-radius: 50px;
+  /* Rounded corners */
   cursor: pointer;
-  background: transparent;
+  /* Pointer cursor on hover */
+  transition: all 0.3s ease;
+  /* Smooth hover effect */
 }
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: #0d865f;
+  /* Darker green on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add shadow on hover */
+}
+
+/* Specific styling for New Chat Button */
+#newChatButton {
+  margin-right: 10px;
+  /* Add spacing between buttons */
+}
+
+/* Specific styling for Clear History Button */
+#clearHistoryButton {
+  margin-left: 10px;
+  /* Add spacing between buttons */
+}
+
 
 form img {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 #loading-overlay {
@@ -200,11 +298,13 @@ form img {
 #arrow-button img {
   width: 30px;
   height: 30px;
-  transition: transform 0.5s ease; /* Smooth rotation */
+  transition: transform 0.5s ease;
+  /* Smooth rotation */
 }
 
 #arrow-button.open img {
-  transform: rotate(180deg); /* Rotate arrow when menu is open */
+  transform: rotate(180deg);
+  /* Rotate arrow when menu is open */
 }
 
 #menu {
@@ -214,7 +314,7 @@ form img {
   width: 300px;
   height: 100%;
   background: #dbf3ff;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   transition: left 0.5s ease;
   z-index: 999;
 }
@@ -232,7 +332,8 @@ body.dark-mode #menu {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-y: auto; /* Add vertical scrolling if needed */
+  overflow-y: auto;
+  /* Add vertical scrolling if needed */
 }
 
 .menu-left {
@@ -282,14 +383,16 @@ body.dark-mode .menu-icon-button img {
 @media (max-width: 768px) {
 
   #chat_container {
-    max-height: calc(100vh - 80px); /* Leave space for the form */
-    overflow-y: auto; 
+    max-height: calc(100vh - 80px);
+    /* Leave space for the form */
+    overflow-y: auto;
   }
-  
-  body, html {
-    overflow-x: hidden; 
+
+  body,
+  html {
+    overflow-x: hidden;
   }
-  
+
   #arrow-button {
     top: 50%;
     transform: translateY(-50%);
@@ -316,31 +419,31 @@ body.dark-mode .menu-icon-button img {
   .menu-left {
     width: 100%;
     flex-direction: row;
-   
-justify-content: space-around;
-padding: 10px 0;
-}
 
-.menu-right {
-width: 100%;
-padding: 20px;
-}
+    justify-content: space-around;
+    padding: 10px 0;
+  }
 
-.menu-icons {
-display: flex;
-justify-content: space-around;
-align-items: center;
-padding: 10px;
-}
+  .menu-right {
+    width: 100%;
+    padding: 20px;
+  }
 
-.menu-icon-button {
-background: transparent;
-border: none;
-margin-right: 10px;
-}
+  .menu-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+  }
 
-.menu-icon-button img {
-width: 30px;
-height: 30px;
-}
+  .menu-icon-button {
+    background: transparent;
+    border: none;
+    margin-right: 10px;
+  }
+
+  .menu-icon-button img {
+    width: 30px;
+    height: 30px;
+  }
 }
