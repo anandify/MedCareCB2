@@ -5,7 +5,7 @@ import mic2 from '/assets/mic2.svg'
 import { v4 as uuidv4 } from 'uuid';
 
 const form = document.querySelector('form');
-const chatContainer = document.querySelector('#chat_container');
+//const chatContainer = document.querySelector('#chat_container');
 const menuDetails = document.querySelector('#menuDetails');
 
 // Initialize or retrieve the session ID and conversation history
@@ -13,11 +13,70 @@ let sessionId = localStorage.getItem('sessionId') || uuidv4();
 let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
 let allConversations = JSON.parse(localStorage.getItem('allConversations')) || {};
 
+// Chat resume feature (bugs here)
+const chatContainer = document.getElementById("chat_container");
+
+// Example function to add a message
+function addMessage(message, sender = "ai") {
+  const wrapper = document.createElement("div");
+  wrapper.className = `wrapper ${sender}`;
+
+  const chatDiv = document.createElement("div");
+  chatDiv.className = `chat ${sender === "user" ? "user" : ""}`;
+
+  // Add profile picture for bot
+  if (sender === "ai") {
+    const profileDiv = document.createElement("div");
+    profileDiv.className = "profile";
+    const img = document.createElement("img");
+    img.src = "assets/bot.svg"; // Replace with bot image
+    img.alt = "Bot Profile";
+    profileDiv.appendChild(img);
+    chatDiv.appendChild(profileDiv);
+  }
+
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "message";
+  messageDiv.textContent = message;
+
+  chatDiv.appendChild(messageDiv);
+  wrapper.appendChild(chatDiv);
+
+  chatContainer.appendChild(wrapper);
+
+  // Scroll to the latest message
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// Event listener for the form submission
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const textarea = event.target.querySelector("textarea");
+  const userMessage = textarea.value.trim();
+  if (!userMessage) return;
+
+  addMessage(userMessage, "user"); // Add user message
+  textarea.value = ""; // Clear the input
+
+});
+
+
 // Save session data in local storage
 function saveSessionData() {
   localStorage.setItem('sessionId', sessionId);
   localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
   localStorage.setItem('allConversations', JSON.stringify(allConversations));
+}
+
+// Function to start a new session
+function startNewSession() {
+  sessionId = uuidv4();
+  allConversations[sessionId] = [];
+  conversationHistory = [];
+  saveSessionData();
+  chatContainer.innerHTML = ''; // Clear the chat container
+  displayWelcomeMessage();
+  updateMenuDetails('previousChats'); // Update the menu to show the new session
 }
 
 function getQueryParams() {
@@ -51,56 +110,55 @@ async function displayWelcomeMessage() {
 
   typeText(messageDiv, welcomeMessage);
 
-  // FIXES - Unecessary welcome messages on user history - bad design
-  // conversationHistory.push({ role: 'bot', text: welcomeMessage });
-  // allConversations[sessionId] = conversationHistory;
-  // saveSessionData();
+  conversationHistory.push({ role: 'bot', text: welcomeMessage });
+  allConversations[sessionId] = conversationHistory;
+  saveSessionData();
 }
 
 //typing effect
 let loadInterval
 
 function loader(element) {
-    element.textContent = ''
+  element.textContent = ''
 
-    loadInterval = setInterval(() => {
-        // Update the text content of the loading indicator
-        element.textContent += '.';
+  loadInterval = setInterval(() => {
+    // Update the text content of the loading indicator
+    element.textContent += '.';
 
-        // If the loading indicator has reached three dots, reset it
-        if (element.textContent === '....') {
-            element.textContent = '';
-        }
-    }, 300);
+    // If the loading indicator has reached three dots, reset it
+    if (element.textContent === '....') {
+      element.textContent = '';
+    }
+  }, 300);
 }
 
 function typeText(element, text) {
-    let index = 0
+  let index = 0
 
-    let interval = setInterval(() => {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index)
-            index++
-        } else {
-            clearInterval(interval)
-        }
-    }, 20)
+  let interval = setInterval(() => {
+    if (index < text.length) {
+      element.innerHTML += text.charAt(index)
+      index++
+    } else {
+      clearInterval(interval)
+    }
+  }, 20)
 }
 
 // generate strip ID for each message div of bot
 // necessary for typing text effect for that specific reply
 // without strip ID, typing text will work on every element
 function generateStripId() {
-    const timestamp = Date.now();
-    const randomNumber = Math.random();
-    const hexadecimalString = randomNumber.toString(16);
+  const timestamp = Date.now();
+  const randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
 
-    return `id-${timestamp}-${hexadecimalString}`;
+  return `id-${timestamp}-${hexadecimalString}`;
 }
 
 function chatStripe(isAi, value, uniqueId) {
-    return (
-        `
+  return (
+    `
         <div class="wrapper ${isAi && 'ai'}">
             <div class="chat">
                 <div class="profile">
@@ -113,7 +171,7 @@ function chatStripe(isAi, value, uniqueId) {
             </div>
         </div>
     `
-    )
+  )
 }
 
 const handleSubmit = async (e) => {
@@ -147,7 +205,7 @@ const handleSubmit = async (e) => {
       },
       body: JSON.stringify({
         prompt: userMessage,
-        conversationId: sessionId|| null,
+        conversationId: sessionId || null,
       }),
     });
 
@@ -188,64 +246,64 @@ displayWelcomeMessage();
 // Speech to text:-
 // Check for browser compatibility
 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-    // Create a new SpeechRecognition object
-    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  
-    // Set the recognition language
-    recognition.lang = 'en-US';
-  
-    // Set interim results to improve responsiveness
-    recognition.interimResults = true;
-  
-    // Define the event handlers for the recognition events
-    recognition.onstart = function () {
-      console.log('Speech recognition started...');
-    };
-  
-    recognition.onresult = function (event) {
-      var result = event.results[event.results.length - 1];
-      var transcript = result[0].transcript;
-      var confidence = result[0].confidence;
-  
-      // Display the result in the textarea
-      var textarea = document.querySelector('textarea[name="prompt"]');
-      textarea.value = transcript;
-    };
-  
-    recognition.onerror = function (event) {
-      console.error('Speech recognition error:', event.error);
-    };
-  
-    recognition.onend = function () {
-      console.log('Speech recognition ended.');
-  
-      // Add a small delay before sending the input
-      setTimeout(function () {
-        // Automatically click the send button
-        var sendButton = document.querySelector('button[type="submit"]');
-        sendButton.click();
-      }, 1000); // 500ms delay
-    };
-  
-    // Start or stop the recognition when the microphone button is clicked
-    var isRecognizing = false;
-    var micButton = document.getElementById('micButton');
-    micButton.addEventListener('click', function () {
-      if (!isRecognizing) {
-        recognition.start();
-        isRecognizing = true;
-        micButton.innerHTML = `<img src=${mic} alt="microphone" />`;
-      } else {
-        recognition.stop();
-        isRecognizing = false;
-        micButton.innerHTML = `<img src=${mic2} alt="microphone" />`;
-      }
-    });
-    
-  } else {
-    console.error('Speech recognition not supported.');
-  }
-  
+  // Create a new SpeechRecognition object
+  var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+  // Set the recognition language
+  recognition.lang = 'en-US';
+
+  // Set interim results to improve responsiveness
+  recognition.interimResults = true;
+
+  // Define the event handlers for the recognition events
+  recognition.onstart = function () {
+    console.log('Speech recognition started...');
+  };
+
+  recognition.onresult = function (event) {
+    var result = event.results[event.results.length - 1];
+    var transcript = result[0].transcript;
+    var confidence = result[0].confidence;
+
+    // Display the result in the textarea
+    var textarea = document.querySelector('textarea[name="prompt"]');
+    textarea.value = transcript;
+  };
+
+  recognition.onerror = function (event) {
+    console.error('Speech recognition error:', event.error);
+  };
+
+  recognition.onend = function () {
+    console.log('Speech recognition ended.');
+
+    // Add a small delay before sending the input
+    setTimeout(function () {
+      // Automatically click the send button
+      var sendButton = document.querySelector('button[type="submit"]');
+      sendButton.click();
+    }, 1000); // 500ms delay
+  };
+
+  // Start or stop the recognition when the microphone button is clicked
+  var isRecognizing = false;
+  var micButton = document.getElementById('micButton');
+  micButton.addEventListener('click', function () {
+    if (!isRecognizing) {
+      recognition.start();
+      isRecognizing = true;
+      micButton.innerHTML = `<img src=${mic} alt="microphone" />`;
+    } else {
+      recognition.stop();
+      isRecognizing = false;
+      micButton.innerHTML = `<img src=${mic2} alt="microphone" />`;
+    }
+  });
+
+} else {
+  console.error('Speech recognition not supported.');
+}
+
 //Loading Screen
 window.addEventListener("load", function () {
   const loadingOverlay = document.getElementById("loading-overlay");
@@ -263,63 +321,63 @@ window.addEventListener("load", function () {
     }, 500);
   }, 1000);
 
-// Menu Bar Elements
-const arrowButton = document.getElementById('arrow-button');
-const menu = document.getElementById('menu');
-const app = document.getElementById('app');
-const menuDetails = document.getElementById('menuDetails');
-const darkModeToggle = document.getElementById('darkModeToggle');
-const aboutBtn = document.getElementById('aboutBtn');
+  // Menu Bar Elements
+  const arrowButton = document.getElementById('arrow-button');
+  const menu = document.getElementById('menu');
+  const app = document.getElementById('app');
+  const menuDetails = document.getElementById('menuDetails');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const aboutBtn = document.getElementById('aboutBtn');
 
-// Toggle menu with animation
-arrowButton.addEventListener('click', () => {
-  menu.classList.toggle('open');
-  arrowButton.classList.toggle('open');
-  if (menu.classList.contains('open')) {
-    app.style.transform = 'translateX(300px)';
-  } else {
-    app.style.transform = 'translateX(0)';
-  }
-  updateMenuDetails('previousChats'); // Default to showing previous chats
-});
+  // Toggle menu with animation
+  arrowButton.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    arrowButton.classList.toggle('open');
+    if (menu.classList.contains('open')) {
+      app.style.transform = 'translateX(300px)';
+    } else {
+      app.style.transform = 'translateX(0)';
+    }
+    updateMenuDetails('previousChats'); // Default to showing previous chats
+  });
 
-// Section buttons
-document.getElementById('loginBtn').addEventListener('click', () => {
-  updateMenuDetails('login');
-});
+  // Section buttons
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    updateMenuDetails('login');
+  });
 
-document.getElementById('previousChatsBtn').addEventListener('click', () => {
-  updateMenuDetails('previousChats');
-});
+  document.getElementById('previousChatsBtn').addEventListener('click', () => {
+    updateMenuDetails('previousChats');
+  });
 
-document.getElementById('documentsBtn').addEventListener('click', () => {
-  updateMenuDetails('documents');
-});
+  document.getElementById('documentsBtn').addEventListener('click', () => {
+    updateMenuDetails('documents');
+  });
 
-darkModeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-});
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+  });
 
-aboutBtn.addEventListener('click', () => {
-  updateMenuDetails('about');
-});
+  aboutBtn.addEventListener('click', () => {
+    updateMenuDetails('about');
+  });
 
-// Updated menu details function to handle all sections, including login and user details
-function updateMenuDetails(section, user = null) {
-  let content = '';
-  user = user || JSON.parse(localStorage.getItem('user')); // Fetch from localStorage if not passed
+  // Updated menu details function to handle all sections, including login and user details
+  function updateMenuDetails(section, user = null) {
+    let content = '';
+    user = user || JSON.parse(localStorage.getItem('user')); // Fetch from localStorage if not passed
 
-  switch (section) {
-    case 'login':
-      if (user) {
-        // Ensure the user object properties are accessed correctly
-        const userName = user.name ? `${user.name.givenName} ${user.name.familyName}` : '[Name not provided]';
-        const userEmail = user.email || '[Email not provided]';
-        const userPicture = user.picture || 'https://via.placeholder.com/60';
-        const userAge = user.age || 'Not provided';
-        const userBloodGroup = user.bloodGroup || 'Not provided';
+    switch (section) {
+      case 'login':
+        if (user) {
+          // Ensure the user object properties are accessed correctly
+          const userName = user.name ? `${user.name.givenName} ${user.name.familyName}` : '[Name not provided]';
+          const userEmail = user.email || '[Email not provided]';
+          const userPicture = user.picture || 'https://via.placeholder.com/60';
+          const userAge = user.age || 'Not provided';
+          const userBloodGroup = user.bloodGroup || 'Not provided';
 
-        content = `
+          content = `
           <h2>Welcome, ${userName}</h2>
           <img src="${userPicture}" alt="Profile Picture" style="width:60px; border-radius:50%;">
           <p>Email: ${userEmail}</p>
@@ -328,114 +386,92 @@ function updateMenuDetails(section, user = null) {
             <li>Blood Group: ${userBloodGroup}</li>
           </ul>
           <button id="logoutButton">Logout</button>`;
-      } else {
-        // If user is not logged in, show login button
-        content = `
+        } else {
+          // If user is not logged in, show login button
+          content = `
           <h2>Login</h2>
           <button id="loginButton">Login with Google</button>
         `;
-      }
-      break;
+        }
+        break;
 
-    case 'previousChats':
-      content = '<h2>Previous Chats</h2><ul>';
-      for (const [id, history] of Object.entries(allConversations)) {
-        content += `<li><a href="#" onclick="loadConversation('${id}')">${id}</a></li>`;
-      }
-      content += '</ul><button id="newChatButton">New Chat</button><button id="clearHistoryButton">Clear History</button>';
-      break;
+      case 'previousChats':
+        content = '<h2>Previous Chats</h2><ul>';
+        for (const [id, history] of Object.entries(allConversations)) {
+          content += `<li><a href="#" onclick="loadConversation('${id}')">${id}</a></li>`;
+        }
+        content += '</ul><button id="newChatButton">New Chat</button><button id="clearHistoryButton">Clear History</button>';
+        break;
 
-    case 'documents':
-      content = '<h2>Documents</h2><p>Uploaded documents here...</p>';
-      break;
+      case 'documents':
+        content = '<h2>Documents</h2><p>Uploaded documents here...(Coming soon)</p>';
+        break;
 
-    case 'about':
-      content = '<h2>About</h2><p>About the application...</p>';
-      break;
+      case 'about':
+        content = '<h2>About</h2><p>About the application...</p>';
+        break;
+    }
+
+    // Update menu details container
+    menuDetails.innerHTML = content;
+
+    // Add event listeners for buttons (like login, new chat, clear history)
+    if (document.getElementById('loginButton')) {
+      document.getElementById('loginButton').addEventListener('click', () => {
+        window.location.href = 'http://localhost:5000/auth/google'; // Trigger Google OAuth login
+      });
+    }
+
+    if (document.getElementById('logoutButton')) {
+      document.getElementById('logoutButton').addEventListener('click', logoutUser);
+    }
+
+    if (section === 'previousChats') {
+      const newChatButton = document.getElementById('newChatButton');
+      newChatButton.addEventListener('click', startNewSession);
+
+      const clearHistoryButton = document.getElementById('clearHistoryButton');
+      clearHistoryButton.addEventListener('click', clearConversationHistory);
+    }
   }
 
-  // Update menu details container
-  menuDetails.innerHTML = content;
-
-  // Add event listeners for buttons (like login, new chat, clear history)
-  if (document.getElementById('loginButton')) {
-    document.getElementById('loginButton').addEventListener('click', () => {
-      window.location.href = 'http://localhost:5000/auth/google'; // Trigger Google OAuth login
-    });
-  }
-
-  if (document.getElementById('logoutButton')) {
-    document.getElementById('logoutButton').addEventListener('click', logoutUser);
-  }
-
-  if (section === 'previousChats') {
-    const newChatButton = document.getElementById('newChatButton');
-    newChatButton.addEventListener('click', startNewSession);
-
-    const clearHistoryButton = document.getElementById('clearHistoryButton');
-    clearHistoryButton.addEventListener('click', clearConversationHistory);
-  }
-}
-
-// Function to load conversation history
-window.loadConversation = function (id) {
-  sessionId = id;
-  conversationHistory = allConversations[id] || [];
-  chatContainer.innerHTML = ''; // Clear chat container
-  // FIXING unecessary welcome msg loads, - temporarily
-  const uniqueId = generateStripId();
-  chatContainer.innerHTML += chatStripe(true, " 🌸 Hello! Welcome to Mamta. Let me know how I can help you with your pregnancy journey.", uniqueId);
-  conversationHistory.forEach(entry => {
+  // Function to load conversation history
+  window.loadConversation = function (id) {
+    sessionId = id;
+    conversationHistory = allConversations[id] || [];
+    chatContainer.innerHTML = ''; // Clear chat container
+    conversationHistory.forEach(entry => {
       const uniqueId = generateStripId();
       chatContainer.innerHTML += chatStripe(entry.role === 'bot', entry.text, uniqueId);
-  });
-};
+    });
+  };
 
-// Function to start a new session
-function startNewSession() {
-  sessionId = uuidv4();
-  allConversations[sessionId] = [];
-  conversationHistory = [];
-  saveSessionData();
-  chatContainer.innerHTML = ''; // Clear the chat container
-  displayWelcomeMessage();
-  updateMenuDetails('previousChats'); // Update the menu to show the new session
-}
+  // Function to clear conversation history
+  function clearConversationHistory() {
+    allConversations = {};
+    conversationHistory = [];
+    saveSessionData(); // Save updated history
+    updateMenuDetails('previousChats');
+  }
 
-// Function to clear conversation history
-function clearConversationHistory() {
-  allConversations = {};
-  conversationHistory = [];
-  saveSessionData(); // Save updated history
-  updateMenuDetails('previousChats');
-  clearSessionData()
-}
-
-// DEV ONLY
-function clearSessionData() {
-  localStorage.removeItem('sessionId');
-  localStorage.removeItem('conversationHistory');
-  localStorage.removeItem('allConversations');
-}
-
-// Function to handle user logout
-function logoutUser() {
-  fetch('http://localhost:5000/logout', {
-    method: 'POST',
-    credentials: 'include',
-  })
-    .then(() => {
-      // Reset menu and show login button
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      updateMenuDetails('login');
+  // Function to handle user logout
+  function logoutUser() {
+    fetch('http://localhost:5000/logout', {
+      method: 'POST',
+      credentials: 'include',
     })
-    .catch(error => console.error('Logout failed:', error));
-}
+      .then(() => {
+        // Reset menu and show login button
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        updateMenuDetails('login');
+      })
+      .catch(error => console.error('Logout failed:', error));
+  }
 
-// Style for new chat and clear history buttons
-const style = document.createElement('style');
-style.innerHTML = `
+  // Style for new chat and clear history buttons
+  const style = document.createElement('style');
+  style.innerHTML = `
   #newChatButton, #clearHistoryButton {
     background-color: #4CAF50;
     border: none;
@@ -456,43 +492,43 @@ style.innerHTML = `
     border: 2px solid #4CAF50;
   }
 `;
-document.head.appendChild(style);
+  document.head.appendChild(style);
 
-// Initially display previous chats
-// updateMenuDetails('previousChats');
+  // Initially display previous chats
+  // updateMenuDetails('previousChats');
 
-// Check for token and user data in the URL
-const { token, user } = getQueryParams();
+  // Check for token and user data in the URL
+  const { token, user } = getQueryParams();
 
-if (token && user) {
-  // Store token and user details in localStorage (or sessionStorage)
-  localStorage.setItem('authToken', token);
-  localStorage.setItem('user', JSON.stringify(user));
+  if (token && user) {
+    // Store token and user details in localStorage (or sessionStorage)
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
 
-  // Update the menu with user info
-  updateMenuDetails('login', user);
+    // Update the menu with user info
+    updateMenuDetails('login', user);
 
-  // Optionally, you can remove the token and user from the URL to clean up the address bar
-  //window.history.replaceState({}, document.title, window.location.pathname);
-}
+    // Optionally, you can remove the token and user from the URL to clean up the address bar
+    //window.history.replaceState({}, document.title, window.location.pathname);
+  }
 
 
 
-// Example function to log out
-function logoutUser() {
-  // Clear stored data
-  localStorage.removeItem('authToken');
-  localStorage.removeItem('user');
+  // Example function to log out
+  function logoutUser() {
+    // Clear stored data
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
 
-  // Update the menu to show login button again
-  updateMenuDetails('login');
-}
+    // Update the menu to show login button again
+    updateMenuDetails('login');
+  }
 
-// Automatically show user details if already logged in (i.e., data exists in localStorage)
-const storedUser = JSON.parse(localStorage.getItem('user'));
-if (storedUser) {
-  updateMenuDetails('login', storedUser);
-}
+  // Automatically show user details if already logged in (i.e., data exists in localStorage)
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  if (storedUser) {
+    updateMenuDetails('login', storedUser);
+  }
 
-  
+
 });
