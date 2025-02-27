@@ -56,7 +56,7 @@ form.addEventListener('submit', async (e) => {
     const intervalId = displayLoader(messageDiv);
 
     try {
-        const response = await fetch('http://localhost:5000/', {
+        const response = await fetch('https://mamta-y6aj.onrender.com:5000/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
