@@ -198,7 +198,7 @@ const handleSubmit = async (e) => {
   saveSessionData();
 
   try {
-    const response = await fetch('https://mamta-y6aj.onrender.com:5000/', {
+    const response = await fetch('https://mamta-y6aj.onrender.com/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -418,7 +418,7 @@ window.addEventListener("load", function () {
     // Add event listeners for buttons (like login, new chat, clear history)
     if (document.getElementById('loginButton')) {
       document.getElementById('loginButton').addEventListener('click', () => {
-        window.location.href = 'https://mamta-y6aj.onrender.com:5000/auth/google'; // Trigger Google OAuth login
+        window.location.href = 'https://mamta-y6aj.onrender.com/auth/google'; // Trigger Google OAuth login
       });
     }
 
@@ -456,7 +456,7 @@ window.addEventListener("load", function () {
 
   // Function to handle user logout
   function logoutUser() {
-    fetch('https://mamta-y6aj.onrender.com:5000/logout', {
+    fetch('https://mamta-y6aj.onrender.com/logout', {
       method: 'POST',
       credentials: 'include',
     })
