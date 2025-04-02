@@ -13,6 +13,11 @@ let sessionId = localStorage.getItem('sessionId') || uuidv4();
 let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
 let allConversations = JSON.parse(localStorage.getItem('allConversations')) || {};
 
+// Variables to prevent duplicate submissions
+let isSubmitting = false;
+let lastTouchTime = 0;
+const touchDebounceTime = 300; // ms to prevent duplicate touch events
+
 // Chat resume feature (bugs here)
 const chatContainer = document.getElementById("chat_container");
 
@@ -47,19 +52,6 @@ function addMessage(message, sender = "ai") {
   // Scroll to the latest message
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
-
-// Event listener for the form submission
-document.querySelector("form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const textarea = event.target.querySelector("textarea");
-  const userMessage = textarea.value.trim();
-  // if (!userMessage) return;
-
-  addMessage(userMessage, "user"); // Add user message
-  textarea.value = ""; // Clear the input
-
-});
-
 
 // Save session data in local storage
 function saveSessionData() {
@@ -177,8 +169,22 @@ function chatStripe(isAi, value, uniqueId) {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+  // Prevent duplicate submissions from touch events
+  const now = Date.now();
+  if (isSubmitting || (now - lastTouchTime < touchDebounceTime && e.type === 'submit')) {
+    return;
+  }
+  
+  isSubmitting = true;
+  lastTouchTime = now;
+
   const data = new FormData(form);
   const userMessage = data.get('prompt');
+  
+  if (!userMessage || userMessage.trim() === '') {
+    isSubmitting = false;
+    return;
+  }
 
   chatContainer.innerHTML += chatStripe(false, userMessage);
 
@@ -230,10 +236,15 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error('Error:', error);
     messageDiv.innerHTML = "Something went wrong";
+  } finally {
+    isSubmitting = false;
   }
 };
 
+// Remove duplicate form submit listener and keep only the handleSubmit function
 form.addEventListener('submit', handleSubmit);
+
+// Keyboard event handling
 form.addEventListener('keyup', (e) => {
   if (e.key === "Enter" && !e.shiftKey) { 
       e.preventDefault();
@@ -241,6 +252,15 @@ form.addEventListener('keyup', (e) => {
   }
 });
 
+// Add touch-specific handling for the submit button
+const submitButton = form.querySelector('button[type="submit"]');
+if (submitButton) {
+  // Use touch events to handle mobile touch input specifically
+  submitButton.addEventListener('touchstart', function(e) {
+    // Mark this as a touch event
+    lastTouchTime = Date.now();
+  }, { passive: true });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const chatContainer = document.getElementById("chat_container");
@@ -284,9 +304,12 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
 
     // Add a small delay before sending the input
     setTimeout(function () {
-      // Automatically click the send button
-      var sendButton = document.querySelector('button[type="submit"]');
-      sendButton.click();
+      // Prevent duplicate submissions by checking isSubmitting
+      if (!isSubmitting) {
+        // Automatically click the send button
+        var sendButton = document.querySelector('button[type="submit"]');
+        sendButton.click();
+      }
     }, 1000); // 500ms delay
   };
 
@@ -517,8 +540,6 @@ window.addEventListener("load", function () {
     //window.history.replaceState({}, document.title, window.location.pathname);
   }
 
-
-
   // Example function to log out
   function logoutUser() {
     // Clear stored data
@@ -534,6 +555,4 @@ window.addEventListener("load", function () {
   if (storedUser) {
     updateMenuDetails('login', storedUser);
   }
-
-
 });
