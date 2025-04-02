@@ -255,12 +255,19 @@ form.addEventListener('keyup', (e) => {
 // Add touch-specific handling for the submit button
 const submitButton = form.querySelector('button[type="submit"]');
 if (submitButton) {
-  // Use touch events to handle mobile touch input specifically
-  submitButton.addEventListener('touchstart', function(e) {
+  // Use touchend instead of touchstart for better user experience
+  submitButton.addEventListener('touchend', function(e) {
+    // Prevent default behavior to avoid any conflicts
+    e.preventDefault();
+    
     // Mark this as a touch event
     lastTouchTime = Date.now();
-  }, { passive: true });
+    
+    // Explicitly call the form submission handler
+    handleSubmit(e);
+  }, { passive: false });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const chatContainer = document.getElementById("chat_container");
