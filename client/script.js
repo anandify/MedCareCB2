@@ -29,7 +29,7 @@ function addMessage(message, sender = "ai") {
     const profileDiv = document.createElement("div");
     profileDiv.className = "profile";
     const img = document.createElement("img");
-    img.src = "assets/bot.svg"; // Replace with bot image
+    img.src = bot; // Replace with bot image
     img.alt = "Bot Profile";
     profileDiv.appendChild(img);
     chatDiv.appendChild(profileDiv);
@@ -53,7 +53,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
   const textarea = event.target.querySelector("textarea");
   const userMessage = textarea.value.trim();
-  if (!userMessage) return;
+  // if (!userMessage) return;
 
   addMessage(userMessage, "user"); // Add user message
   textarea.value = ""; // Clear the input
@@ -235,12 +235,17 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
-  if (e.keyCode === 13) {
-    handleSubmit(e);
+  if (e.key === "Enter" && !e.shiftKey) { 
+      e.preventDefault();
+      handleSubmit(e);
   }
 });
 
-displayWelcomeMessage();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const chatContainer = document.getElementById("chat_container");
+  displayWelcomeMessage();
+});
 
 
 // Speech to text:-
