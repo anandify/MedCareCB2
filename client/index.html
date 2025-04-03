@@ -1,57 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mamta - For all your Pregnancy needs</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <div id="loading-overlay">
-      <div class="loading-image"></div>
-      <div class="logo-overlay"></div>
-    </div>
-    
-    <div id="app">
-      <div id="chat_container"></div>
 
-      <form>
-          <button type="button" id="micButton"><img src="assets/mic.svg" alt="microphone" /></button>
-          <textarea name="prompt" rows="1" cols="1" placeholder="Ask Mamta..."></textarea>
-          <button type="submit"><img src="assets/send.svg" alt="send" /></button>
-      </form>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mamta - For all your Pregnancy needs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-    <div id="menu">
-      <div id="arrow-button">
-        <img src="assets/arrow.svg" alt="arrow" />
+<body>
+
+  <div id="loading-overlay">
+    <div class="loading-image"></div>
+    <div class="loading-text">Mamta - For all your Pregnancy needs</div>
+    <div class="logo-overlay"></div>
+      
+  </div>
+
+  <div id="app">
+    <div id="chat_container"></div>
+
+    <form>
+      <button type="button" id="micButton"><img src="assets/mic.svg" alt="microphone" /></button>
+      <textarea name="prompt" rows="1" cols="1" placeholder="Ask Mamta..."></textarea>
+      <button type="submit"><img src="assets/send.svg" alt="send" /></button>
+    </form>
+  </div>
+
+  <div id="menu">
+    <div id="arrow-button">
+      <img src="assets/arrow.svg" alt="arrow" />
+    </div>
+    <div class="menu-content">
+      <div class="menu-left">
+        <button id="loginBtn">Login</button>
+        <button id="previousChatsBtn">Previous Chats</button>
+        <button id="documentsBtn">Documents</button>
       </div>
-      <div class="menu-content">
-        <div class="menu-left">
-          <button id="loginBtn">Login</button>
-          <button id="previousChatsBtn">Previous Chats</button>
-          <button id="documentsBtn">Documents</button>
-        </div>
-        <div class="menu-right" id="menuDetails">
-          <!-- Details of the selected menu will appear here -->
-        </div>
-        <div class="menu-icons">
-          <button id="darkModeToggle" class="menu-icon-button">
-            <img src="assets/moon.svg" alt="dark mode" />
-          </button>
-          <button id="aboutBtn" class="menu-icon-button">
-            <img src="assets/info.svg" alt="about" />
-          </button>
-        </div>
-        
+      <div class="menu-right" id="menuDetails">
+        <!-- Details of the selected menu will appear here -->
       </div>
-    </div>
-   
-    
-   
+      <div class="menu-icons">
+        <button id="darkModeToggle" class="menu-icon-button">
+          <img src="assets/moon.svg" alt="dark mode" />
+        </button>
+        <button id="aboutBtn" class="menu-icon-button">
+          <img src="assets/info.svg" alt="about" />
+        </button>
+      </div>
 
-    <script type="module" src="script.js"></script>
-  </body>
+    </div>
+  </div>
+
+
+
+
+  <script type="module" src="script.js"></script>
+</body>
+
 </html>
