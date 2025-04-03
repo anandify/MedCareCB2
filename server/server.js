@@ -132,7 +132,7 @@ const handleRequest = async (req, res) => {
           role: entry.role,
           parts: [{ text: entry.text }]
         })),
-        generationConfig: { maxOutputTokens: 100 }
+        generationConfig: { maxOutputTokens: 1000 }
       });
 
       if (!conversations[username]) {
