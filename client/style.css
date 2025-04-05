@@ -472,3 +472,29 @@ body.dark-mode .menu-icon-button img {
     height: 30px;
   }
 }
+
+.upload-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.upload-container input {
+  margin-right: 10px;
+}
+
+.upload-container button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.upload-container button:hover {
+  background-color: #45a049;
+}
+
+#uploadStatus {
+  margin-top: 10px;
+  font-weight: bold;
+}

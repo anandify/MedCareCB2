@@ -174,13 +174,13 @@ const handleSubmit = async (e) => {
   if (isSubmitting || (now - lastTouchTime < touchDebounceTime && e.type === 'submit')) {
     return;
   }
-  
+
   isSubmitting = true;
   lastTouchTime = now;
 
   const data = new FormData(form);
   const userMessage = data.get('prompt');
-  
+
   if (!userMessage || userMessage.trim() === '') {
     isSubmitting = false;
     return;
@@ -246,9 +246,9 @@ form.addEventListener('submit', handleSubmit);
 
 // Keyboard event handling
 form.addEventListener('keyup', (e) => {
-  if (e.key === "Enter" && !e.shiftKey) { 
-      e.preventDefault();
-      handleSubmit(e);
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    handleSubmit(e);
   }
 });
 
@@ -256,13 +256,13 @@ form.addEventListener('keyup', (e) => {
 const submitButton = form.querySelector('button[type="submit"]');
 if (submitButton) {
   // Use touchend instead of touchstart for better user experience
-  submitButton.addEventListener('touchend', function(e) {
+  submitButton.addEventListener('touchend', function (e) {
     // Prevent default behavior to avoid any conflicts
     e.preventDefault();
-    
+
     // Mark this as a touch event
     lastTouchTime = Date.now();
-    
+
     // Explicitly call the form submission handler
     handleSubmit(e);
   }, { passive: false });
@@ -439,7 +439,13 @@ window.addEventListener("load", function () {
         break;
 
       case 'documents':
-        content = '<h2>Documents</h2><p>Uploaded documents here...(Coming soon)</p>';
+        content = `
+        <h2>Upload Documents</h2>
+        <div class="upload-container">
+          <input type="file" id="fileInput" />
+          <button onclick="uploadFile()">Upload Document</button>
+          <p id="uploadStatus"></p>
+        </div>`;
         break;
 
       case 'about':
@@ -563,3 +569,32 @@ window.addEventListener("load", function () {
     updateMenuDetails('login', storedUser);
   }
 });
+async function uploadFile() {
+  const fileInput = document.getElementById("fileInput");
+  const statusText = document.getElementById("uploadStatus");
+
+  if (!fileInput.files.length) {
+    statusText.textContent = "Please select a file to upload.";
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch("/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      statusText.textContent = "✅ File uploaded successfully!";
+    } else {
+      statusText.textContent = "❌ Upload failed: " + result.error;
+    }
+  } catch (error) {
+    statusText.textContent = "⚠️ Error uploading file.";
+  }
+}

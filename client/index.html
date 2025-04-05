@@ -28,6 +28,7 @@
     </form>
   </div>
 
+
   <div id="menu">
     <div id="arrow-button">
       <img src="assets/arrow.svg" alt="arrow" />
@@ -49,12 +50,15 @@
           <img src="assets/info.svg" alt="about" />
         </button>
       </div>
-
     </div>
   </div>
 
-
-
+  <!-- Upload Document Section (hidden initially) -->
+  <div class="upload-container" style="display: none;">
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload Document</button>
+    <p id="uploadStatus"></p>
+  </div>
 
   <script type="module" src="script.js"></script>
 </body>
