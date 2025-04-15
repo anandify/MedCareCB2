@@ -174,13 +174,13 @@ const handleSubmit = async (e) => {
   if (isSubmitting || (now - lastTouchTime < touchDebounceTime && e.type === 'submit')) {
     return;
   }
-  
+
   isSubmitting = true;
   lastTouchTime = now;
 
   const data = new FormData(form);
   const userMessage = data.get('prompt');
-  
+
   if (!userMessage || userMessage.trim() === '') {
     isSubmitting = false;
     return;
@@ -276,9 +276,9 @@ form.addEventListener('submit', handleSubmit);
 
 // Keyboard event handling
 form.addEventListener('keyup', (e) => {
-  if (e.key === "Enter" && !e.shiftKey) { 
-      e.preventDefault();
-      handleSubmit(e);
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    handleSubmit(e);
   }
 });
 
@@ -286,13 +286,13 @@ form.addEventListener('keyup', (e) => {
 const submitButton = form.querySelector('button[type="submit"]');
 if (submitButton) {
   // Use touchend instead of touchstart for better user experience
-  submitButton.addEventListener('touchend', function(e) {
+  submitButton.addEventListener('touchend', function (e) {
     // Prevent default behavior to avoid any conflicts
     e.preventDefault();
-    
+
     // Mark this as a touch event
     lastTouchTime = Date.now();
-    
+
     // Explicitly call the form submission handler
     handleSubmit(e);
   }, { passive: false });

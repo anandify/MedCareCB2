@@ -267,6 +267,7 @@ form img {
   height: 100%;
   background-color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 1;
@@ -287,6 +288,15 @@ form img {
   border-radius: 50%;
   background-image: url(assets/pregnant_lady_adobe_express.svg);
   background-size: cover;
+}
+
+.loading-text {
+  margin-top: 15px;
+  /* Add spacing between circle and text */
+  font-size: 18px;
+  /* Adjust font size */
+  color: #363853;
+  /* Match the color scheme */
 }
 
 #arrow-button {
@@ -331,10 +341,11 @@ body.dark-mode #arrow-button img {
 }
 
 body.dark-mode #menu {
-  background: #0d1626 ;
+  background: #0d1626;
   color: #e0e0e0;
 }
-body.dark-mode #micButton img{
+
+body.dark-mode #micButton img {
   filter: brightness(0) invert(1);
 }
 
@@ -460,4 +471,30 @@ body.dark-mode .menu-icon-button img {
     width: 30px;
     height: 30px;
   }
+}
+
+.upload-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.upload-container input {
+  margin-right: 10px;
+}
+
+.upload-container button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.upload-container button:hover {
+  background-color: #45a049;
+}
+
+#uploadStatus {
+  margin-top: 10px;
+  font-weight: bold;
 }
