@@ -18,10 +18,13 @@
       <div id="chat_container"></div>
 
       <form>
-          <button type="button" id="micButton"><img src="assets/mic.svg" alt="microphone" /></button>
-          <textarea name="prompt" rows="1" cols="1" placeholder="Ask Mamta..."></textarea>
-          <button type="submit"><img src="assets/send.svg" alt="send" /></button>
-      </form>
+        <button type="button" id="micButton"><img src="assets/mic.svg" alt="microphone" /></button>
+        <button type="button" id="fileUploadButton"><img src="assets/attachment.svg" alt="attachment" /></button>
+        <input type="file" id="fileInput" style="display: none;" />
+        <textarea name="prompt" rows="1" cols="1" placeholder="Ask Mamta..."></textarea>
+        <button type="submit"><img src="assets/send.svg" alt="send" /></button>
+    </form>
+    
     </div>
 
     <div id="menu">
@@ -53,5 +56,16 @@
    
 
     <script type="module" src="script.js"></script>
+    <script>
+        function addFileToChat(uri, name, mimeType) {
+    currentFileUri = uri;
+    currentFileMimeType = mimeType;
+    currentFileName = name;
+  
+    const textarea = document.querySelector('textarea[name="prompt"]');
+    textarea.value += `I've selected a file: ${name}. `;
+    textarea.focus();
+  }
+    </script>
   </body>
 </html>

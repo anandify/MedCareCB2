@@ -186,7 +186,12 @@ const handleSubmit = async (e) => {
     return;
   }
 
-  chatContainer.innerHTML += chatStripe(false, userMessage);
+  // Add file information to the message if a file is attached
+  const displayMessage = currentFileUri 
+    ? `${userMessage}\n[Attached file: ${currentFileName || 'document'}]` 
+    : userMessage;
+
+  chatContainer.innerHTML += chatStripe(false, displayMessage);
 
   form.reset();
 
@@ -199,7 +204,19 @@ const handleSubmit = async (e) => {
 
   loader(messageDiv);
 
-  conversationHistory.push({ role: 'user', text: userMessage });
+  // Add file info to conversation history if available
+  if (currentFileUri) {
+    conversationHistory.push({ 
+      role: 'user', 
+      text: userMessage,
+      fileUri: currentFileUri,
+      fileMimeType: currentFileMimeType,
+      fileName: currentFileName
+    });
+  } else {
+    conversationHistory.push({ role: 'user', text: userMessage });
+  }
+  
   allConversations[sessionId] = conversationHistory;
   saveSessionData();
 
@@ -212,18 +229,31 @@ const handleSubmit = async (e) => {
       body: JSON.stringify({
         prompt: userMessage,
         conversationId: sessionId || null,
+        fileUri: currentFileUri,
+        fileMimeType: currentFileMimeType
       }),
     });
+
+    // Clear the current file data after sending
+    const fileWasAttached = currentFileUri !== null;
+    currentFileUri = null;
+    currentFileMimeType = null;
+    currentFileName = null;
 
     clearInterval(loadInterval);
     messageDiv.innerHTML = " ";
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData);
+      // console.log(responseData);
       const botMessage = responseData.bot.trim();
 
-      typeText(messageDiv, botMessage);
+      // Add a note about the file if one was attached
+      const displayBotMessage = fileWasAttached 
+        ? `${botMessage}\n(Response includes analysis of your uploaded file)` 
+        : botMessage;
+
+      typeText(messageDiv, displayBotMessage);
 
       conversationHistory.push({ role: 'bot', text: botMessage });
       allConversations[sessionId] = conversationHistory;
@@ -438,10 +468,28 @@ window.addEventListener("load", function () {
         content += '</ul><button id="newChatButton">New Chat</button><button id="clearHistoryButton">Clear History</button>';
         break;
 
-      case 'documents':
-        content = '<h2>Documents</h2><p>Uploaded documents here...(Coming soon)</p>';
-        break;
-
+        case 'documents':
+          content = '<h2>Documents</h2><ul id="fileList">Loading your files...</ul>';
+          fetch('https://mamta-y6aj.onrender.com/list-files')
+            .then(response => response.json())
+            .then(data => {
+              if (data.success && data.files.length > 0) {
+                const fileListElement = document.getElementById('fileList');
+                fileListElement.innerHTML = '';
+                data.files.forEach(file => {
+                  const fileItem = document.createElement('li');
+                  fileItem.innerHTML = `<a href="#" onclick="addFileToChat('${file.uri}', '${file.name}', '${file.mimeType}')">${file.name}</a>`;
+                  fileListElement.appendChild(fileItem);
+                });
+              } else {
+                document.getElementById('fileList').innerHTML = '<p>No files found.</p>';
+              }
+            })
+            .catch(error => {
+              document.getElementById('fileList').innerHTML = '<p>Failed to load files.</p>';
+            });
+          break;
+        
       case 'about':
         content = '<h2>About</h2><p>About the application...</p>';
         break;
@@ -561,5 +609,83 @@ window.addEventListener("load", function () {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   if (storedUser) {
     updateMenuDetails('login', storedUser);
+  }
+});
+
+// File upload variables
+let currentFileUri = null;
+let currentFileMimeType = null;
+let currentFileName = null;
+
+// Add event listeners for file upload
+const fileUploadButton = document.getElementById('fileUploadButton');
+const fileInput = document.getElementById('fileInput');
+
+fileUploadButton.addEventListener('click', () => {
+  fileInput.click();
+});
+
+
+fileInput.addEventListener('change', async (event) => {
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    
+    // Check file size (max 100MB)
+    if (file.size > 100 * 1024 * 1024) {
+      alert('File size exceeds the maximum limit of 100MB');
+      return;
+    }
+    
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('conversationId', sessionId || null);
+    
+    // Create a unique ID for the upload message
+    const uploadMsgId = generateStripId();
+    
+    // Add an upload message to the chat
+    chatContainer.innerHTML += chatStripe(false, `Uploading file: ${file.name}...`, uploadMsgId);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    try {
+      const uploadResponse = await fetch('https://mamta-y6aj.onrender.com/upload-file', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText || 'Upload failed');
+      }
+      
+      const uploadData = await uploadResponse.json();
+      
+      if (uploadData.success) {
+        // Update the upload message
+        document.getElementById(uploadMsgId).innerHTML = `
+          <div class="message">File uploaded: ${file.name}</div>
+        `;
+        
+        // Store the file info for the next message
+        currentFileUri = uploadData.fileUri;
+        currentFileMimeType = file.type;
+        currentFileName = file.name;
+        
+        // Add a suggestion to the textarea
+        const textarea = document.querySelector('textarea');
+        if (!textarea.value) {
+          textarea.value = `I've uploaded a file called ${file.name}. `;
+          textarea.focus();
+        }
+      } else {
+        throw new Error(uploadData.error || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      document.getElementById(uploadMsgId).innerHTML = `
+        <div class="message">Failed to upload: ${file.name}. ${error.message}</div>
+      `;
+    }
   }
 });
