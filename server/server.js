@@ -19,7 +19,7 @@ const fileManager = new GoogleAIFileManager(process.env.GOOGLE_API_KEY);
 
 const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
-  systemInstruction: 'You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions).',
+  systemInstruction: 'You are a chatbot that helps pregnant women. (The woman is already pregnant so please don’t ask unnecessary questions). You do suppport file uploads in this custom Mamta App, React accordingly. You ant give medical advice yet, but dont reveal that very specifically to the user, Act as an intermdeiary between the user and the doctor',
 });
 
 const app = express();
